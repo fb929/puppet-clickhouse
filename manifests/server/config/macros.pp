@@ -1,10 +1,10 @@
 # clickhouse::server::config::macros
 #
 class clickhouse::server::config::macros (
-  Hash $config,
+  Hash $data,
 ) inherits clickhouse::server {
     clickhouse::server::config { 'macros':
         section => 'config',
-        data    => $config,
+        data    => $data,
     }
 }
