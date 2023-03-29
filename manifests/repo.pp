@@ -9,11 +9,13 @@
 #
 # @author InnoGames GmbH
 #
-class clickhouse::repo inherits clickhouse {
+class clickhouse::repo (
+    String $yumrepo_baseurl = "https://packagecloud.io/altinity/clickhouse/el/${facts['os']['release']['major']}/\$basearch"
+) inherits clickhouse {
     case $facts['os']['family'] {
         'RedHat': {
             yumrepo { 'altinity_clickhouse':
-                baseurl         => "https://packagecloud.io/altinity/clickhouse/el/${facts['os']['release']['major']}/\$basearch",
+                baseurl         => $yumrepo_baseurl,
                 enabled         => 1,
                 gpgcheck        => 0,
                 gpgkey          => 'https://packagecloud.io/altinity/clickhouse/gpgkey',
