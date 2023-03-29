@@ -41,7 +41,7 @@ define clickhouse::client::config (
 
     file { "${clickhouse::client::config_d_dir}/${title}.xml":
         ensure  => $ensure,
-        content => hash_to_xml($data, {'RootName' => 'config'}),
+        content => hash2xml("yandex", $data),
         mode    => $mode,
         require => Package[$clickhouse::client::package_name],
     }

@@ -53,7 +53,7 @@ define clickhouse::server::config (
     }) |$config_path| {
         file { $config_path:
             ensure  => $ensure,
-            content => hash_to_xml($data, {'RootName' => 'yandex'}),
+            content => hash2xml("yandex", $data),
             mode    => $mode,
             owner   => $clickhouse::user,
             group   => $clickhouse::group,
