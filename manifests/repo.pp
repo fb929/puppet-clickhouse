@@ -10,22 +10,23 @@
 # @author InnoGames GmbH
 #
 class clickhouse::repo (
-    String $yumrepo_baseurl = "https://packagecloud.io/altinity/clickhouse/el/${facts['os']['release']['major']}/\$basearch"
+    String $yumrepo_baseurl = "https://packages.clickhouse.com/rpm/lts/",
+    String $yumrepo_gpgkey = "https://packages.clickhouse.com/rpm/lts/repodata/repomd.xml.key",
 ) inherits clickhouse {
     case $facts['os']['family'] {
         'RedHat': {
-            yumrepo { 'altinity_clickhouse':
+            yumrepo { 'clickhouse':
                 baseurl         => $yumrepo_baseurl,
                 enabled         => 1,
                 gpgcheck        => 0,
-                gpgkey          => 'https://packagecloud.io/altinity/clickhouse/gpgkey',
+                gpgkey          => $yumrepo_gpgkey,
                 metadata_expire => 300,
                 repo_gpgcheck   => 1,
                 sslverify       => 1,
                 sslcacert       => '/etc/pki/tls/certs/ca-bundle.crt',
             }
 
-            Yumrepo['altinity_clickhouse'] -> Package <| |>
+            Yumrepo['clickhouse'] -> Package <| |>
         }
         'Debian': {
             apt::source { 'clickhouse_yandex':

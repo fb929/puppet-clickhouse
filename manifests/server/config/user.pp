@@ -63,6 +63,13 @@
 #
 # @author InnoGames GmbH
 #
+
+class clickhouse::server::config::users (
+  Hash $list,
+) inherits clickhouse::server {
+  ensure_resources('clickhouse::server::config::user', $list)
+}
+
 define clickhouse::server::config::user (
     Struct[{
         Optional[ip]          => Array[String[1], 1],
